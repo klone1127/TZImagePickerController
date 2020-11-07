@@ -344,6 +344,9 @@ static dispatch_once_t onceToken;
 }
 
 - (PHImageRequestID)getPhotoWithAsset:(PHAsset *)asset photoWidth:(CGFloat)photoWidth completion:(void (^)(UIImage *photo,NSDictionary *info,BOOL isDegraded))completion progressHandler:(void (^)(double progress, NSError *error, BOOL *stop, NSDictionary *info))progressHandler networkAccessAllowed:(BOOL)networkAccessAllowed {
+    if (asset == nil) {
+        return PHInvalidImageRequestID;
+    }
     CGSize imageSize;
     if (photoWidth < TZScreenWidth && photoWidth < _photoPreviewMaxWidth) {
         imageSize = AssetGridThumbnailSize;
